@@ -16,11 +16,10 @@ class Department(models.Model):
       return self.company.name + ' - ' + self.title
 
 class Employee(models.Model):
-  user = models.ForeignKey(User, related_name="employee_profile", on_delete=models.CASCADE)
-  name = models.CharField(max_length=50)
+  user = models.OneToOneField(User, related_name="employee_profile", on_delete=models.CASCADE)
   department = models.ForeignKey(Department, related_name="employees", on_delete=models.CASCADE)
   position = models.CharField(max_length=20) # eg. Programmer, Secretary, etc
-  avatar = models.URLField()
+  avatar = models.URLField(blank=True)
   created_at = models.DateTimeField(auto_now_add=True)
 
   def __str__(self) -> str:
